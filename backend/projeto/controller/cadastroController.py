@@ -18,7 +18,6 @@ class CadastroController:
    def cadastrar_usuario_com_atleta(dados):
        try:
            print(dados)
-
            data_nascimento_documento = dados['data_nascimento_documento']
            data_nascimento_digitado = datetime.strptime(dados['data_nascimento'], "%Y-%m-%d").strftime("%d/%m/%Y")
 
@@ -29,7 +28,6 @@ class CadastroController:
            maior_idade = Tratamento_dados.maior_idade(data_nascimento_documento)
            print("maior idade: ", maior_idade)
                
-           return False
            senha_hash = generate_password_hash(
                dados['senha'], method="pbkdf2:sha256", salt_length=16
            )
@@ -103,10 +101,10 @@ class CadastroController:
            raise ValueError("Erro interno ao cadastrar atleta")
        
    @staticmethod
-   def cadastro_usuario_com_agente(dados, documento_img):
+   def cadastro_usuario_com_agente(dados):
        try:
            documento_form = re.sub(r"\D", "", dados['numero_documento'])
-           documento_img = re.sub(r"\D", "", documento_img)
+           documento_img = re.sub(r"\D", "", dados['cpf_documento'])
 
            if documento_form != documento_img:
                return {
