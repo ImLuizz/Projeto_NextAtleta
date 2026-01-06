@@ -8,6 +8,19 @@ from services.rg_parser import RGparse
 class Tratamento_dados:
 
     @staticmethod
+    def valida_campos_funcao_interna(resposta):
+        campos_invalidos = sum(
+                1 for campo in ['rg', 'cpf', 'data_nascimento', 'nome']
+                if resposta.get(campo) is None
+            )
+
+        if campos_invalidos < 2:
+            return True
+        
+        else:
+            return False
+
+    @staticmethod
     def validar_cpf(cpf: str) -> bool:
         try:
             if cpf is None:
@@ -85,7 +98,21 @@ class Tratamento_dados:
     @staticmethod
     def extrair_dados(arquivo):
             imagem = Preprocessador_img.open_img(arquivo)
-            image = Preprocessador_img.preprocess(imagem)
-            text = OCRservices.extracao_text(image)
-            return RGparse(text).parse()
+            text = OCRservices.extracao_text(imagem)
+            resposta = RGparse(text).parse()
+            print("resposta 1: ", resposta)
+            
+            deu_certo = Tratamento_dados.valida_campos_funcao_interna(resposta)
+
+            if deu_certo:
+                return resposta
+
+            imagem_proc = Preprocessador_img.preprocess(imagem)
+            text_proc = OCRservices.extracao_text(imagem_proc)
+            resposta_proc = RGparse(text_proc).parse()
+            print("resposta 2: ", resposta_proc)
+
+            return resposta_proc
+    
+
     

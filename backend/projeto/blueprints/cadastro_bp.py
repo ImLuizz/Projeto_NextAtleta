@@ -11,7 +11,7 @@ cadastro_bp = Blueprint("cadastro", __name__)
 controller = CadastroController()
 
 
-@cadastro_bp.route('/', methods=['POST'])
+@cadastro_bp.route('/atleta', methods=['POST'])
 def cadastrar_atleta ():
     try:
        dto = CadastroAtletaDTO(
@@ -24,11 +24,11 @@ def cadastrar_atleta ():
 
        data = dto.build()
         
-       usuario = controller.cadastrar_usuario_com_atleta(data)
+      #usuario = controller.cadastrar_usuario_com_atleta(data)
 
        return jsonify({
            "sucess": True,
-           "user": usuario.to_dict()
+           "user": "usuario.to_dict()"
        }), 500
 
     except ValueError as e:

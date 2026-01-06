@@ -40,6 +40,7 @@ class Preprocessador_img:
             
             # 1. Converter para escala de cinza
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+          
             cv2.imwrite("etapa_um.jpg", gray)
 
             
@@ -69,3 +70,4 @@ class Preprocessador_img:
         except Exception as e:
 
             raise RuntimeError(f"Erro no pré-processamento da imagem: {e}")
+        
