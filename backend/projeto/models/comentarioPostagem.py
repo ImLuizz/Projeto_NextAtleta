@@ -6,6 +6,7 @@ class ComentarioPostagem(db.Model):
     Representa um comentário feito por um usuário em uma postagem.
 
     Cada comentário pertence a uma única postagem e a um único usuário.
+    Comentários podem responder outros comentários dentro da mesma tabela.
     A tabela armazena o texto do comentário e informações de auditoria.
     """
 
@@ -37,6 +38,14 @@ class ComentarioPostagem(db.Model):
         comment="ID do usuário autor do comentário."
     )
 
+    # Comentário pai (se for uma resposta)
+    comentario_pai_id = db.Column(
+        db.BigInteger,
+        db.ForeignKey('comentario_postagem.id', ondelete='CASCADE', onupdate='CASCADE'),
+        nullable=True,
+        comment="ID do comentário pai, se este for uma resposta."
+    )
+
     # Indica se o comentário está ativo ou foi removido logicamente
     ativo = db.Column(
         db.Boolean,
@@ -64,8 +73,12 @@ class ComentarioPostagem(db.Model):
     # Relacionamento com o usuário
     usuario = db.relationship('Usuario', backref='comentarios')
 
-    # Relacionamento com respostas
-    respostas = db.relationship('RespostaComentario', back_populates='comentario', cascade='all, delete-orphan')
+    # Relacionamento com comentários filhos (respostas)
+    respostas = db.relationship(
+        'ComentarioPostagem',
+        backref=db.backref('comentario_pai', remote_side=[id]),
+        cascade='all, delete-orphan'
+    )
 
     def to_dict(self):
         """
@@ -79,6 +92,7 @@ class ComentarioPostagem(db.Model):
             "conteudo": self.conteudo,
             "postagem_id": self.postagem_id,
             "usuario_id": self.usuario_id,
+            "comentario_pai_id": self.comentario_pai_id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "ativo": self.ativo,
             "nome_usuario": self.usuario.nome if self.usuario else None,
