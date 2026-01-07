@@ -1,0 +1,3 @@
+from .atualizacaoPerfilDTO import AtualizacaoPerfilDTO
+from .perfilPrivadoDTO import PerfilPrivadoDTO
+from .perfilPublicoDTO import PerfilPublicoDTO

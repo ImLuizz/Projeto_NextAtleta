@@ -7,6 +7,7 @@ def init_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
+
     CORS(app, 
          supports_credentials=True, 
          resources={r"/*": {
@@ -14,8 +15,12 @@ def init_app():
     }})
 
     from blueprints.cadastro_bp import cadastro_bp
+    from blueprints.login_bp import login_bp
+    from blueprints.perfil_bp import perfil_bp
 
     app.register_blueprint(cadastro_bp, url_prefix='/cadastrar')
+    app.register_blueprint(login_bp, url_prefix='/login')
+    app.register_blueprint(perfil_bp, url_prefix='/perfil')
 
     return app
 

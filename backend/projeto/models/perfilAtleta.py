@@ -1,5 +1,5 @@
 from extension.extensao import db
-from sqlalchemy import Enum
+from sqlalchemy import Enum, Integer, Boolean, String
 from sqlalchemy.sql import func
 
 
@@ -16,6 +16,7 @@ class PerfilAtleta(db.Model):
 
     esporte = db.Column(db.String(50), nullable=False)
     posicao = db.Column(db.String(50), nullable=False)
+    numero_camisa = db.Column(db.Integer, nullable=True)
     categoria = db.Column(db.String(50))
 
     pe_dominante = db.Column(
