@@ -164,8 +164,6 @@ export const authService = {
       });
 
      
-     
-
       return {
         success: true,
         message: 'Cadastro realizado com sucesso!',
@@ -177,7 +175,7 @@ export const authService = {
     } catch (error) {
       return {
         success: false,
-        message: 'Erro ao realizar cadastro',
+        message: error instanceof Error ? error.message : 'Erro desconhecido',
         error: error instanceof Error ? error.message : 'Erro desconhecido',
       };
     }

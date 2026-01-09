@@ -9,16 +9,8 @@ class Tratamento_dados:
 
     @staticmethod
     def valida_campos_funcao_interna(resposta):
-        campos_invalidos = sum(
-                1 for campo in ['rg', 'cpf', 'data_nascimento', 'nome']
-                if resposta.get(campo) is None
-            )
+        return {campo for campo, valor in resposta.items() if valor is not None}
 
-        if campos_invalidos < 2:
-            return True
-        
-        else:
-            return False
 
     @staticmethod
     def validar_cpf(cpf: str) -> bool:
@@ -96,23 +88,41 @@ class Tratamento_dados:
             return False
         
     @staticmethod
-    def extrair_dados(arquivo):
+    def extrair_dados(arquivo, verso):
+            if verso:
+                campos_esperados = {'rg', 'cpf'}
+            else:
+                campos_esperados = {'nome', 'data_nascimento'}
             imagem = Preprocessador_img.open_img(arquivo)
             text = OCRservices.extracao_text(imagem)
             resposta = RGparse(text).parse()
             print("resposta 1: ", resposta)
             
-            deu_certo = Tratamento_dados.valida_campos_funcao_interna(resposta)
+            resposta_final = {
+                campo: valor
+                for campo, valor in resposta.items()
+                if valor is not None and campo in campos_esperados
+            }
 
-            if deu_certo:
-                return resposta
-
+            if len(resposta_final) == 2:
+                return resposta_final
+            
             imagem_proc = Preprocessador_img.preprocess(imagem)
             text_proc = OCRservices.extracao_text(imagem_proc)
             resposta_proc = RGparse(text_proc).parse()
             print("resposta 2: ", resposta_proc)
 
-            return resposta_proc
+            for campo in campos_esperados:
+                if campo not in resposta_final and resposta_proc.get(campo) is not None:
+                    resposta_final[campo] = resposta_proc[campo]
+
+            if len(resposta_final) == 2:
+                print("\n__________________________ RESULTADO FINAL ________________________________\n")
+                print(resposta_final)
+                print("\n___________________________________________________________________________\n")
+                return resposta_final
+
+            return False
     
 
     

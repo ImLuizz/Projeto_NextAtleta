@@ -20,9 +20,9 @@ def cadastrar_atleta ():
        )
        dto.validar()
        dto.processar_documentos(Tratamento_dados)
-       dto.validar_cpf()
-
+       dto.validar_cpf(Tratamento_dados)
        data = dto.build()
+       
         
       #usuario = controller.cadastrar_usuario_com_atleta(data)
 
@@ -34,15 +34,15 @@ def cadastrar_atleta ():
     except ValueError as e:
         print(str(e))
         return jsonify({
-            "sucesso": False,
-            "erro": str(e)
+            "sucess": False,
+            "message": str(e)
         }), 400
     
     except Exception as e:
         print(str(e))
         return jsonify({
             "success": False,
-            "error": "Erro interno no servidor"
+            "message": "Erro interno no servidor!!!!"
         }), 500
 
 @cadastro_bp.route('/agente', methods=['POST'])

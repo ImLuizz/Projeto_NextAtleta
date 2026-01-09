@@ -23,8 +23,15 @@ class CadastroAtletaDTO:
             if not frente or not verso:
                 raise ValueError("Envie frente e verso do documento")
 
-            info_frente = tratamento_dados_service.extrair_dados(frente)
-            info_verso = tratamento_dados_service.extrair_dados(verso)
+            info_frente = tratamento_dados_service.extrair_dados(frente, False)
+            info_verso = tratamento_dados_service.extrair_dados(verso, True)
+
+            if not info_frente:
+                raise ValueError("Erro na leitura da foto frontal do documento, por favor reenvie ou cadastre depois!")
+            if not info_verso:
+                raise ValueError("Erro na leitura da foto do verso do documento, por favor reenvie ou cadastre depois!")
+            
+            print("aquiii")
 
             self._mapear_dados_documento({
                 "nome": info_frente.get("nome"),
@@ -34,6 +41,7 @@ class CadastroAtletaDTO:
             })
 
     def _mapear_dados_documento(self, info: dict):
+        
         self.data_final.update({
             "nome_documento": info.get("nome"),
             "data_nascimento_documento": info.get("data_nascimento"),

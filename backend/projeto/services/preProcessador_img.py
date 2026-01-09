@@ -40,10 +40,7 @@ class Preprocessador_img:
             
             # 1. Converter para escala de cinza
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-          
             cv2.imwrite("etapa_um.jpg", gray)
-
-            
 
            # 2. Aqui é o ponto principal, aqui vamos decidir, de forma inteligente, o que vai virar preto e o que vai virar branco
             thresh = cv2.adaptiveThreshold(
@@ -58,9 +55,9 @@ class Preprocessador_img:
 
             # 5. Sharpen leve
             kernel = np.array([
-                [-0, -1, -0],
+                [0, -1, 0],
                 [-1, 5, -1],
-                [-0, -1, -0]
+                [0, -1, 0]
             ])
             sharpened = cv2.filter2D(thresh, -1, kernel)
             cv2.imwrite("etapa_tres.jpg", sharpened)
