@@ -144,7 +144,7 @@ const Register: React.FC = () => {
         setTimeout(() => navigate('/'), 2000);
       } else {
         toast({
-          title: 'Erro no cadastro',
+          title: 'Erro no cadastro!!',
           description: response.message,
           variant: 'destructive',
         });
@@ -152,7 +152,7 @@ const Register: React.FC = () => {
     } catch (error) {
       toast({
         title: 'Erro',
-        description: 'Ocorreu um erro ao realizar o cadastro',
+        description: error.message,
         variant: 'destructive',
       });
     } finally {
