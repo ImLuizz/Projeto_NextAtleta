@@ -15,7 +15,7 @@ class Atleta(db.Model):
     )
 
     data_nascimento = db.Column(db.Date, nullable=False)
-    cpf_numero = db.Column(db.String(30))
+    cpf_numero = db.Column(db.String(30), nullable=False)
     maior_idade = db.Column(db.Boolean)
     possui_responsavel = db.Column(db.Boolean)
 
