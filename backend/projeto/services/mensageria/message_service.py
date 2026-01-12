@@ -1,7 +1,7 @@
 from models.conversa import Conversa
 from models.mensagem import Mensagem
 from extension.extensao import db
-from sqlalchemy import or_, and_, desc
+from sqlalchemy import or_, and_, desc, func
 
 class MessageService:
     

@@ -26,6 +26,7 @@ class CadastroController:
                raise ValueError("Data de nascimento digitada e do documento não coincidem!")
            
            maior_idade = Tratamento_dados.maior_idade(data_nascimento_documento)
+           possui_responsavel = not maior_idade
            print("maior idade: ", maior_idade)
                
            senha_hash = generate_password_hash(
@@ -53,14 +54,15 @@ class CadastroController:
            atleta = Atleta(
                usuario_id=usuario.id,
                data_nascimento=data_nascimento,
+               cpf=dados['cpf_documento'], 
                maior_idade = maior_idade,
-               possui_responsavel = False,
+               possui_responsavel = possui_responsavel,
                cidade=dados['cidade'],
                estado=dados['estado'],
                altura_cm=dados['altura_cm'],
                peso_kg=dados['peso_kg'],
                sexo=dados['sexo'],
-               disponivel=dados['disponivel_oportunidades'],
+               disponivel=dados['disponivel_oportunidades'] == 'true',
                nivel_confiabilidade=1
            )
    

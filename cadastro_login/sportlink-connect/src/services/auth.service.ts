@@ -71,7 +71,7 @@ export const authService = {
   // Login
   async login(data: LoginData): Promise<AuthResponse> {
     try {
-      const response = await apiCall<AuthResponse>('/auth/login', {
+      const response = await apiCall<AuthResponse>('/login/', {
         method: 'POST',
         body: JSON.stringify(data),
       });

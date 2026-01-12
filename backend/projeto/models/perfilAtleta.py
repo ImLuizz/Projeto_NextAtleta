@@ -16,7 +16,6 @@ class PerfilAtleta(db.Model):
 
     esporte = db.Column(db.String(50), nullable=False)
     posicao = db.Column(db.String(50), nullable=False)
-    numero_camisa = db.Column(db.Integer, nullable=True)
     categoria = db.Column(db.String(50))
 
     pe_dominante = db.Column(
@@ -26,7 +25,7 @@ class PerfilAtleta(db.Model):
     bio = db.Column(db.Text)
 
     mao_dominante= db.Column(
-        Enum('direito', 'esquerdo', 'ambidestro', name='mao_dominante_enum')
+        Enum('direita', 'esquerda', 'ambidestro', name='mao_dominante_enum')
     )
 
     nivel_tecnico = db.Column(

@@ -24,12 +24,12 @@ def cadastrar_atleta ():
        data = dto.build()
        
         
-      #usuario = controller.cadastrar_usuario_com_atleta(data)
+       usuario = controller.cadastrar_usuario_com_atleta(data)
 
        return jsonify({
            "sucess": True,
-           "user": "usuario.to_dict()"
-       }), 500
+           "user": usuario.to_dict()
+       }), 200
 
     except ValueError as e:
         print(str(e))

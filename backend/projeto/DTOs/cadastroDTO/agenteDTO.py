@@ -61,7 +61,8 @@ class CadastroAgenteDTO:
             "nome_documento": info.get("nome"),
             "data_nascimento_documento": info.get("data_nascimento"),
             "rg_documento": info.get("rg"),
-            "cpf_documento": info.get("cpf")
+            "cpf_documento": info.get("cpf"),
+            "documento_validado": True
         })
 
     def validar_cpf(self, tratamento_dados_service):

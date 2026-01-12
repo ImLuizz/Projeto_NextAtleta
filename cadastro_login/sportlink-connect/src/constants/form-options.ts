@@ -92,13 +92,13 @@ export const CATEGORIAS = [
 export const PE_DOMINANTE = [
   { value: 'direito', label: 'Direito' },
   { value: 'esquerdo', label: 'Esquerdo' },
-  { value: 'ambos', label: 'Ambos' },
+  { value: 'ambidestro', label: 'Ambidestro' },
 ];
 
 export const MAO_DOMINANTE = [
-  { value: 'direito', label: 'Direito' },
-  { value: 'esquerdo', label: 'Esquerdo' },
-  { value: 'ambos', label: 'Ambos' },
+  { value: 'direita', label: 'Direita' },
+  { value: 'esquerda', label: 'Esquerda' },
+  { value: 'ambidestro', label: 'Ambidestro' },
 ];
 
 export const NIVEL_TECNICO = [

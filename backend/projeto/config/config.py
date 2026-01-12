@@ -9,7 +9,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 class Config:
   
     SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_hex(32))
-    PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=900000)
+    PERMANENT_SESSION_LIFETIME = datetime.timedelta(hours=2)
 
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",

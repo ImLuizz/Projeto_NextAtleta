@@ -1,5 +1,6 @@
 from models.usuario import Usuario
 from extension.extensao import db
+
 class UsuarioRepository:
 
     @staticmethod
@@ -7,3 +8,9 @@ class UsuarioRepository:
         db.session.add(usuario)
         db.session.flush()
         return usuario
+    
+    @staticmethod
+    def buscar_por_email(email):
+        usuario = Usuario.query.filter_by(email = email).first()
+        return usuario
+
